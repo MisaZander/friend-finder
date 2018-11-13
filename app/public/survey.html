@@ -35,6 +35,8 @@
             <i class="fas fa-angle-double-right"></i> Submit
         </button>
 
+        <br><br>
+
         <script>
             var questions = [
                 "I prefer a night home alone than a night out on most occasions.",
@@ -53,9 +55,26 @@
 
             for(let i = 0; i < questions.length; i++){
                 let question = $("<div>");
-                $(question).append("<h3>Question " + (i+1) + "</h3>");
+                $(question).append("<h3><strong>Question " + (i+1) + "</strong></h3>");
                 $(question).append("<h4>" + questions[i] + "</h4>");
 
+                for(let j = 0; j < answers.length; j++){
+                    let answerDiv = $("<div>");
+                    $(answerDiv).attr("class", "form-check");
+                    let answerCheckbox = $("<input>");
+                    $(answerCheckbox).attr("class", "form-check-input");
+                    $(answerCheckbox).attr("type", "radio");
+                    $(answerCheckbox).attr("name", i + 1); //name will represent the current question
+                    $(answerCheckbox).attr("value", j + 1); //value will be put into a user's answer array
+                    $(answerDiv).append(answerCheckbox);
+
+                    let answerLabel = $("<label>");
+                    $(answerLabel).attr("class", "form-check-label");
+                    $(answerLabel).text(answers[j]);
+                    $(answerDiv).append(answerLabel);
+
+                    $(question).append(answerDiv);
+                }
 
                 $("#questions").append(question);
             }
