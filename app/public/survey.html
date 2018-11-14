@@ -37,57 +37,117 @@
 
         <br><br>
 
-        <script>
-            var questions = [
-                "I prefer a night home alone than a night out on most occasions.",
-                "I believe in a certain level of give and take in a true friendship.",
-                "I prefer to confide in anonymous strangers online that with real people.",
-                "I tend to replay conversations over and over wondering where I went wrong.",
-                "I will in most cases reply to texts or online communiques as soon as humanly possible.",
-                "I do a lot of online digging on a person before or shortly after I first meet them.",
-                "I secretly think the people around me hate me even though that's most likely logically untrue.",
-                "I probably spend at least 300% more time in the bathroom than a normal person if I take my phone in there.",
-                "I'm not entirely sure what I would do with my days if the Internet went down.",
-                "I like to stay up to date with current events rather than live under a rock."
-            ]; 
-            
-            var answers = ["Strongly Disagree", "Disagree", "I have no strong feelings one way or the other", "Agree", "Strongly Agree"];
+        <!--The Modal-->
+        <div id="results-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Grab a brewski with...</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h2 id="match-name">Peeping Tom</h2>
+                        <img id="match-image" src="https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwj2pKn9yNLeAhWyVN8KHSc9CmoQjRx6BAgBEAU&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DyhCpA4fJ8g0&psig=AOvVaw0n4BuyNfFhUq1rs8sHA4VF&ust=1542239758945730"
+                        alt="Your new buddy">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kthx</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            for(let i = 0; i < questions.length; i++){
-                let question = $("<div>");
-                $(question).append("<h3><strong>Question " + (i+1) + "</strong></h3>");
-                $(question).append("<h4>" + questions[i] + "</h4>");
+    <script>
+        var questions = [
+            "I prefer a night home alone than a night out on most occasions.",
+            "I believe in a certain level of give and take in a true friendship.",
+            "I prefer to confide in anonymous strangers online that with real people.",
+            "I tend to replay conversations over and over wondering where I went wrong.",
+            "I will in most cases reply to texts or online communiques as soon as humanly possible.",
+            "I do a lot of online digging on a person before or shortly after I first meet them.",
+            "I secretly think the people around me hate me even though that's most likely logically untrue.",
+            "I probably spend at least 300% more time in the bathroom than a normal person if I take my phone in there.",
+            "I'm not entirely sure what I would do with my days if the Internet went down.",
+            "I like to stay up to date with current events rather than live under a rock."
+        ]; 
+        
+        var answers = ["Strongly Disagree", "Disagree", "I have no strong feelings one way or the other", "Agree", "Strongly Agree"];
 
-                for(let j = 0; j < answers.length; j++){
-                    let answerDiv = $("<div>");
-                    $(answerDiv).attr("class", "form-check");
-                    let answerCheckbox = $("<input>");
-                    $(answerCheckbox).attr("class", "form-check-input");
-                    $(answerCheckbox).attr("type", "radio");
-                    $(answerCheckbox).attr("name", i + 1); //name will represent the current question
-                    $(answerCheckbox).attr("value", j + 1); //value will be put into a user's answer array
-                    $(answerDiv).append(answerCheckbox);
+        for(let i = 0; i < questions.length; i++){
+            let question = $("<div>");
+            $(question).append("<h3><strong>Question " + (i+1) + "</strong></h3>");
+            $(question).append("<h4>" + questions[i] + "</h4>");
 
-                    let answerLabel = $("<label>");
-                    $(answerLabel).attr("class", "form-check-label");
-                    $(answerLabel).text(answers[j]);
-                    $(answerDiv).append(answerLabel);
+            for(let j = 0; j < answers.length; j++){
+                let answerDiv = $("<div>");
+                $(answerDiv).attr("class", "form-check");
+                let answerCheckbox = $("<input>");
+                $(answerCheckbox).attr("class", "form-check-input");
+                $(answerCheckbox).attr("type", "radio");
+                $(answerCheckbox).attr("name", i + 1); //name will represent the current question
+                $(answerCheckbox).attr("value", j + 1); //value will be put into a user's answer array
+                $(answerDiv).append(answerCheckbox);
 
-                    $(question).append(answerDiv);
-                }
+                let answerLabel = $("<label>");
+                $(answerLabel).attr("class", "form-check-label");
+                $(answerLabel).text(answers[j]);
+                $(answerDiv).append(answerLabel);
 
-                $("#questions").append(question);
+                $(question).append(answerDiv);
             }
 
-            $("#submit").on("click", function(event) {
-                event.preventDefault(); //I do NOT want to reload
-                var answersArr = [];
-                //var answers = $(".form-check-input");
-                for(let i = 0; i < questions.length; i++){
-                    console.log("Question " + (i + 1) + ": " + parseInt($("input[name=" + (i+1) + "]:checked", "#questions").val()));
-                    //answersArr.push(parseInt($("input[name=" + (i+1) + "]:checked", "#questions").val()));
-                }
-            });
-        </script>
-    </div>
+            $("#questions").append(question);
+        }
+
+        $("#submit").on("click", function(event) {
+            event.preventDefault(); //I do NOT want to reload
+            var answersArr = [];
+            var isComplete = true;
+            for(let i = 0; i < questions.length; i++){
+                //console.log("Question " + (i + 1) + ": " + parseInt($("input[name=" + (i+1) + "]:checked", "#questions").val()));
+                if(isNaN(parseInt($("input[name=" + (i+1) + "]:checked", "#questions").val()))){
+                    //A question will return NaN if left unanswered
+                    isComplete = false;
+                } else {
+                    answersArr.push(parseInt($("input[name=" + (i+1) + "]:checked", "#questions").val()));
+                }                    
+            }
+            //console.log(answersArr);
+            //Validate fields
+            if(!isComplete){
+                alert("You must answer all the questions.");
+                return;
+            }
+            if($("#name").val() === ""){
+                alert("A man may have no name in Westeros, but in this quiz, you need to supply a name in the name field.");
+                return;
+            }
+            if($("#photo").val() === ""){
+                alert("We want to see your pretty face, please fill out the photo link field. Or make one up, I don't care, I'm not an Internet cop.");
+                return;
+            }
+
+            //Package it up all nice
+            var data = {
+                name: $("#name").val(),
+                link: $("#photo").val(),
+                answers: answersArr
+            };
+
+            //Modal test
+            $("#match-name").text($("#name").val());
+            $("#match-image").attr("src", $("#photo").val());
+
+            $("#results-modal").modal("toggle");
+
+            /*Imma leave this ajax call commented out until I actually get the server going
+            $.post("/api/friends", data, function(resultingData) {
+
+            }); //POST callback
+
+            */
+
+        });
+    </script>
 </body>
