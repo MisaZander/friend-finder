@@ -2,6 +2,7 @@
 var express = require("express");
 var path = require("path");
 var htmlRoutes = require("./app/routing/htmlRoutes");
+var apiRoutes = require("./app/routing/apiRoutes");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -14,11 +15,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "app", "public")));
 
 //Tell Express to use the defined routes
+app.use("/", apiRoutes);
+
 app.use("/", htmlRoutes);
-
-
-
-
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);

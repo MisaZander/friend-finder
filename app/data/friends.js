@@ -30,3 +30,18 @@
 //        * Total Difference: **2 + 1 + 2 =** **_5_**
 //    * Remember to use the absolute value of the differences. Put another way: no negative solutions! Your app should calculate both `5-3` and `3-5` as `2`, and so on. 
 //    * The closest match will be the user with the least amount of difference.
+
+var friends = [
+    {
+        name: "Forever Alone Guy",
+        photo: "https://i.kym-cdn.com/photos/images/original/000/111/211/84d.png",
+        scores: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+    },
+    {
+        name: "Success Kid",
+        photo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/SuccessKid.jpg/256px-SuccessKid.jpg",
+        scores: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    }
+];
+
+module.exports = friends;
