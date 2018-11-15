@@ -14,11 +14,7 @@ router.get("/api/friends", function(req, res) {
 
 router.post("/api/friends", function(req, res) {
     var postInfo = req.body;
-    // console.log("Post detected. Data before:");
-    // console.log(data);
-    // console.log("postInfo:");
-    // console.log(postInfo);
-
+    
    //Crunch the data
    var allScores = []; //[user1Total, user2Total, ...]
    //For every person in the data
@@ -36,20 +32,34 @@ router.post("/api/friends", function(req, res) {
         allScores[i] = total;
    }
 
+   //Obtain the best match
+   var lowScore = 9999;
+   var bestMatchIndex = 0;
+   for(let i = 0; i < allScores.length; i++){
+       if(allScores[i] < lowScore){
+           lowScore = allScores[i];
+           bestMatchIndex = i;
+       }
+   }
+
    //Add self to array after score tablulation to avoid comparing to self
    if(postInfo.isGonnaSave === "true") { //Even a POSTed bool is sent off as a string
-    //I really don't want the isGonnaSave value from postInfo
-    let personals = {
-        name: postInfo.name,
-        link: postInfo.link,
-        scores: postInfo.scores
+        //I really don't want the isGonnaSave value from postInfo
+        let personals = {
+            name: postInfo.name,
+            link: postInfo.link,
+            scores: postInfo.scores
+        }
+
+        data.push(personals);
     }
 
-    data.push(personals);
-}
-//    console.log("Data after:");
-//    console.log(data);
-    res.send(allScores);
+    //Finally, send the post request back the best match
+    res.send({
+        name: data[bestMatchIndex].name,
+        link: data[bestMatchIndex].link
+    });
+
 });//router.post()
 
 module.exports = router;
