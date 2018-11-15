@@ -41,6 +41,16 @@ var friends = [
         name: "Success Kid",
         link: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/SuccessKid.jpg/256px-SuccessKid.jpg",
         scores: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    {
+        name: "His Neutralness",
+        link: "https://66.media.tumblr.com/161600d53801ba0c40c284a0cb1b00d8/tumblr_no3loeMauQ1ut6yv4o1_1280.png",
+        scores: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+    },
+    {
+        name: "Foul Bachelor Frog",
+        link: "https://i.kym-cdn.com/photos/images/masonry/000/464/920/4fe.png",
+        scores: [3, 3, 4, 3, 5, 2, 3, 5, 5, 3]
     }
 ];
 
