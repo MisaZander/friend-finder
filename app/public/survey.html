@@ -162,6 +162,12 @@
                 $("#match-image").attr("src", resultingData.link);
                 $("#match-compatibility").text(resultingData.compatibility);
 
+                //If they submit, clear out the text fields to prevent an accidental resubmit
+                if(isGonnaSave === "true"){
+                    $("#name").val("");
+                    $("#photo").val("");
+                }
+
                 $("#results-modal").modal("toggle");
                 
             }); //POST callback
