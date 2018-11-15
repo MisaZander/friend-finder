@@ -13,6 +13,15 @@ router.get("/api/friends", function(req, res) {
 });
 
 router.post("/api/friends", function(req, res) {
+    //Let's make sure there's some data to go there
+    if(data.length === 0) {
+        res.send({
+            name: "Nobody. Nobody's Here Yet...",
+            link: "http://spacecollective.org/userdata/XuC06jJw/1267260196/615140382_6e62193f7c.jpg"
+        });
+        return;
+    }    
+    
     var postInfo = req.body;
     
    //Crunch the data
