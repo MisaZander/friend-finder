@@ -12,4 +12,12 @@ router.get("/api/friends", function(req, res) {
     return res.json(data);
 });
 
+router.post("/api/friends", function(req, res) {
+    var postInfo = req.body;
+
+    data.push(postInfo);
+
+    res.send(data);
+});
+
 module.exports = router;

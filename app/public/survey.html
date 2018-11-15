@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Friend Finder</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>    
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -29,10 +29,15 @@
             
         </form>
 
-        <br><br>
+        <hr>
 
+        <p>By clicking Submit, you agree to have your information saved in the database so future friends can find you.</p>
+        <p>But if you're paranoid and would rather just creep, click "Peek" to see your results and skip being saved.</p>
         <button type="submit" class="btn btn-lg btn-success" id="submit">
             <i class="fas fa-angle-double-right"></i> Submit
+        </button>
+        <button type="submit" class="btn btn-lg btn-danger" id="peek">
+            <i class="fas fa-eye"></i> Peek
         </button>
 
         <br><br>
@@ -47,7 +52,7 @@
                     </div>
                     <div class="modal-body">
                         <h2 id="match-name">Peeping Tom</h2>
-                        <img id="match-image" src="https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwj2pKn9yNLeAhWyVN8KHSc9CmoQjRx6BAgBEAU&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DyhCpA4fJ8g0&psig=AOvVaw0n4BuyNfFhUq1rs8sHA4VF&ust=1542239758945730"
+                        <img id="match-image" src="/burgerhoff.jpg"
                         alt="Your new buddy">
                     </div>
                     <div class="modal-footer">
@@ -102,6 +107,15 @@
 
         $("#submit").on("click", function(event) {
             event.preventDefault(); //I do NOT want to reload
+            postIt(true);
+        });
+
+        $("#peek").on("click", function(event) {
+            event.preventDefault();
+            postIt(false);
+        });
+
+        function postIt(isGonnaSave){
             var answersArr = [];
             var isComplete = true;
             for(let i = 0; i < questions.length; i++){
@@ -132,22 +146,17 @@
             var data = {
                 name: $("#name").val(),
                 link: $("#photo").val(),
-                answers: answersArr
+                answers: answersArr,
+                isGonnaSave: isGonnaSave
             };
 
-            //Modal test
-            $("#match-name").text($("#name").val());
-            $("#match-image").attr("src", $("#photo").val());
-
-            $("#results-modal").modal("toggle");
-
-            /*Imma leave this ajax call commented out until I actually get the server going
             $.post("/api/friends", data, function(resultingData) {
+                //$("#match-name").text(resultingData.name);
+                //$("#match-image").attr("src", resultingData.photo);
 
+                //$("#results-modal").modal("toggle");
+                console.log(resultingData);
             }); //POST callback
-
-            */
-
-        });
+        }//postit()
     </script>
 </body>
