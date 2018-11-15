@@ -34,12 +34,12 @@
 var friends = [
     {
         name: "Forever Alone Guy",
-        photo: "https://i.kym-cdn.com/photos/images/original/000/111/211/84d.png",
+        link: "https://i.kym-cdn.com/photos/images/original/000/111/211/84d.png",
         scores: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
     },
     {
         name: "Success Kid",
-        photo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/SuccessKid.jpg/256px-SuccessKid.jpg",
+        link: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/SuccessKid.jpg/256px-SuccessKid.jpg",
         scores: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     }
 ];

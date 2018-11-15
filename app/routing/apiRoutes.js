@@ -14,19 +14,42 @@ router.get("/api/friends", function(req, res) {
 
 router.post("/api/friends", function(req, res) {
     var postInfo = req.body;
+    // console.log("Post detected. Data before:");
+    // console.log(data);
+    // console.log("postInfo:");
+    // console.log(postInfo);
 
-   if(postInfo.isGonnaSave) {
-        //I really don't want the isGonnaSave value from postInfo
-        let personals = {
-            name: postInfo.name,
-            photo: postInfo.photo,
-            scores: postInfo.scores
+   //Crunch the data
+   var allScores = []; //[user1Total, user2Total, ...]
+   //For every person in the data
+   for(let i = 0; i < data.length; i++) {
+        //For each answer in the scores array
+        var total = 0;
+        for(let j = 0; j < postInfo.scores.length; j++){
+            //Mental note: postInfo contains the submitted user's scores
+            //data[i] refers to the current previous user
+            let myScore = postInfo.scores[j];
+            let theirScore = data[i].scores[j];
+            let questionDiff = Math.abs(myScore - theirScore); //Always returns a positive
+            total += questionDiff; //Add to running total
         }
-
-        data.push(personals);
+        allScores[i] = total;
    }
 
-    res.send(data);
-});
+   //Add self to array after score tablulation to avoid comparing to self
+   if(postInfo.isGonnaSave === "true") { //Even a POSTed bool is sent off as a string
+    //I really don't want the isGonnaSave value from postInfo
+    let personals = {
+        name: postInfo.name,
+        link: postInfo.link,
+        scores: postInfo.scores
+    }
+
+    data.push(personals);
+}
+//    console.log("Data after:");
+//    console.log(data);
+    res.send(allScores);
+});//router.post()
 
 module.exports = router;
