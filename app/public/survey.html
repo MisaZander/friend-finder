@@ -60,6 +60,7 @@
                         <h2 id="match-name">Peeping Tom</h2>
                         <img id="match-image" src="/burgerhoff.jpg"
                         alt="Your new buddy">
+                        <h2>Match Compatibility: <span id="match-compatibility">0</span>%</h2>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Kthx</button>
@@ -159,6 +160,7 @@
             $.post("/api/friends", data, function(resultingData) {
                 $("#match-name").text(resultingData.name);
                 $("#match-image").attr("src", resultingData.link);
+                $("#match-compatibility").text(resultingData.compatibility);
 
                 $("#results-modal").modal("toggle");
                 

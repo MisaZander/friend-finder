@@ -64,9 +64,12 @@ router.post("/api/friends", function(req, res) {
     }
 
     //Finally, send the post request back the best match
+    //A lowScore of 0 means both participants had identical answers, and will return 100% compatibility
+    //A lowScore of 40 means these two should be archenemies and return 0% compatibility
     res.send({
         name: data[bestMatchIndex].name,
-        link: data[bestMatchIndex].link
+        link: data[bestMatchIndex].link,
+        compatibility: parseInt(100 - Math.round((lowScore / 40) * 100))
     });
 
 });//router.post()
