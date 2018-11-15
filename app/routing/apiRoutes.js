@@ -15,7 +15,16 @@ router.get("/api/friends", function(req, res) {
 router.post("/api/friends", function(req, res) {
     var postInfo = req.body;
 
-    data.push(postInfo);
+   if(postInfo.isGonnaSave) {
+        //I really don't want the isGonnaSave value from postInfo
+        let personals = {
+            name: postInfo.name,
+            photo: postInfo.photo,
+            scores: postInfo.scores
+        }
+
+        data.push(personals);
+   }
 
     res.send(data);
 });
