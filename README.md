@@ -1,6 +1,6 @@
 # Friend Finder
 ## Summary
-Live Demo: https://friend-finder-zs.heroku.com
+Live Demo: https://friend-finder-zs.herokuapp.com/
 
 Just another one of those online quizzes that helps you find a buddy to grab a brewski with.
 Answer a few questions and find out who your new friend is! (Disclaimer: this database was seeded with memes because the app developer doesn't get out much.)
